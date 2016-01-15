@@ -14,6 +14,7 @@ Requirements
 ------------
 
 - Jenkins on the server to load the views to
+- curl on the server (used to load the views)
 - a Jenkins username/password that can administer views
 
 Role Variables
