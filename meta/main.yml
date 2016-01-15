@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: Inclusive Design Research Centre
+  description:
+  company: your company (optional)
+  license: MIT
+  min_ansible_version: 1.2
+
+  dependencies: []
