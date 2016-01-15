@@ -1,0 +1,34 @@
+---
+
+- name: create directory for view definitions
+  file:
+    state: directory
+    path: "{{ jenkins_view_configs_directory }}"
+
+- name: deploy config template for nested views
+  template:
+    src: nested_view.j2
+    dest: "{{ jenkins_view_configs_directory}}/{{ item.name | urlencode() }}.xml"
+  with_items: "{{ jenkins_nested_views }}"
+
+- name: deploy config template for global views
+  template:
+    src: list_view.j2
+    dest: "{{ jenkins_view_configs_directory}}/{{ item.name | urlencode() }}.xml"
+  with_items: "{{ jenkins_global_views }}"
+
+- name: delete the old versions of any nested views we're replacing
+  command: "{{ jenkins_delete_view_curl_command }}"
+  with_items: "{{ jenkins_nested_views }}"
+
+- name: create nested views
+  command: "{{ jenkins_upload_view_curl_command }}"
+  with_items: "{{ jenkins_nested_views }}"
+
+- name: delete the old versions of any global views we're replacing
+  command: "{{ jenkins_delete_view_curl_command }}"
+  with_items: "{{ jenkins_global_views }}"
+
+- name: create global views
+  command: "{{ jenkins_upload_view_curl_command }}"
+  with_items: "{{ jenkins_global_views }}"
