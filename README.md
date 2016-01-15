@@ -32,9 +32,10 @@ The Jenkins server must have the Nested Views plugin installed if you wish to us
 Example Playbook
 ----------------
 
+This playbook prompts for a Jenkins user name and password at runtime.
+
 ```
 - hosts: jenkins
-  remote_user: vagrant
   become: yes
 
   vars_prompt:
